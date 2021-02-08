@@ -1,82 +1,57 @@
 #include <iostream>
 #include <cmath>
+#include <iomanip>
 using namespace std;
-class SimpleCalculator
+class BaseCalculator
 {
-private:
+protected:
     int num1;
     int num2;
 
-protected:
-    void getNumber(void)
-    {
-        cout << "First Number is " << num1 << endl;
-        cout << "Second Number is " << num2 << endl;
-    }
-
 public:
-    void setNumber(int a, int b)
+    void getNumber()
     {
-        num1 = a;
-        num2 = b;
-    }
-    int add()
-    {
-        return num1 + num2;
-    }
-    int sunum2trnum1ct()
-    {
-        return num1 - num2;
-    }
-    int multiply()
-    {
-        return num1 * num2;
-    }
-    double divide()
-    {
-        return num1 / num2;
+        cout << "Enter the First Number " << endl;
+        cin >> num1;
+        cout << "Enter the Second Number " << endl;
+        cin >> num2;
     }
 };
-class ScientificCalculator
+class SimpleCalculator : virtual public BaseCalculator
+{
+
+public:
+    void displaySimpleCalc()
+    {
+        cout << "Operation Related to the Simple Calculator" << endl
+             << "The sum of two numbers: " << num1 + num2 << endl
+             << "The difference of two numbers: " << num1 - num2 << endl
+             << "The product of two numbers: " << num1 * num2 << endl
+             << "The divide of two numbers: " << num1 / num2 << endl
+             << endl;
+    }
+};
+class ScientificCalculator : virtual public BaseCalculator
 {
 public:
-    float sqrt(int a)
+    void displayScientificCalc()
     {
-        return sqrt(a);
-    }
-    int power(int a, int b)
-    {
-        return pow(a, b);
-    }
-    float sine(int a)
-    {
-        return sin(a);
-    }
-    int roundDown(float a)
-    {
-        return floor(a);
-    }
-    int roundUp(float a)
-    {
-        return ceil(a);
+        cout << "Operation Related to the Scientific Calculator" << endl
+             << "The square root  of 1st & second number is: " << sqrt(num1) << setw(10) << sqrt(num2) << endl
+             << "The power of num1 to the num2 is: " << pow(num1, num2) << endl
+             << "The sine of 1st & 2nd number is " << sin(num1) << setw(10) << sin(num2) << endl
+             << "The rounding up of 1st & 2nd number is " << ceil(num1) << setw(5) << ceil(num2) << endl
+             << "The rounding down of 1st & 2nd number is " << floor(num1) << setw(5) << floor(num2) << endl;
     }
 };
 class HybridCalculator : public SimpleCalculator, public ScientificCalculator
 {
-public:
-    void display()
-    {
-        getNumber();
-        cout << "The Result of the Calculation is ";
-    }
 };
 int main()
 {
-    HybridCalculator op1;
-    op1.setNumber(4, 2);
-    op1.display();
-    cout << op1.add() << endl;
-    op1.display();
-    cout << op1.roundUp(6.5) << endl;
+    HybridCalculator calc;
+    calc.getNumber();
+    calc.displaySimpleCalc();
+    calc.displayScientificCalc();
     return 0;
 }
